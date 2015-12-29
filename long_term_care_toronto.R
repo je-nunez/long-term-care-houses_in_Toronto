@@ -14,7 +14,7 @@ library(maptools)
 library(ggmap)
 library(rgdal)
 
-shp_dirname <- "/set/here/full/directory/path/to/shapefile/"
+shp_dirname <- "/Users/joseemilio.nunezmaya/projects/tests/city_operated_long_term_care_wgs84/"
 shp_fullpath <- paste(shp_dirname,
                       "city_op_long_term_care_wgs84.shp",
                       sep = "")
@@ -71,6 +71,6 @@ ggmap(city_background) +
             size = text_size, vjust = 0.1, hjust = 1.1) +
   labs(x = "Longitude",
        y = "Latitude",
-       title = "Phone numbers of Long-Term-Care Houses Toronto")
+       title = "Phone numbers of Long-Term-Care Houses operated by the City of Toronto")
 
 dev.off()
