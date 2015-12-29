@@ -31,7 +31,7 @@ long_term_care.points[, "TELEPHONE"] <- sapply(long_term_care.points[, "TELEPHON
 
 zoom_level <- 11
 
-toronto_borders <- c(-79.58, 43.59, -79.15, 43.795)
+toronto_borders <- c(-79.59, 43.59, -79.12, 43.795)
 
 city_background <- get_map(location = toronto_borders,
                            color = "color",
@@ -58,10 +58,17 @@ ggmap(city_background) +
   scale_shape_identity() +
   geom_text(aes(x = coords.x1,
                 y = coords.x2,
-                label = TELEPHONE),
+                label = paste(trimws(ADDRESS_FU), " (", TELEPHONE, ")", sep = "")),
             data = long_term_care.points,
             family="Helvetica", fontface="bold", size = text_size,
-            vjust = 0.1, hjust = -0.2, alpha = 0.9) +
+            vjust = 0.1, hjust = -0.05, alpha = 0.9) +
+  geom_text(aes(x = coords.x1,
+                y = coords.x2,
+                angle = 45,
+                label = BEDS),
+            data = long_term_care.points,
+            family="sans", fontface="bold", colour = "Blue",
+            size = text_size, vjust = 0.1, hjust = 1.1) +
   labs(x = "Longitude",
        y = "Latitude",
        title = "Phone numbers of Long-Term-Care Houses Toronto")
