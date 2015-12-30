@@ -17,11 +17,15 @@ cmd_line_usage <- function() {
 
 cmdline_args <- commandArgs(TRUE)
 
-if ( length(cmdline_args) != 1 || cmdline_args[1] == "" || file.access(cmdline_args, mode = 4) != 0) {
+if ( length(cmdline_args) != 1 || cmdline_args[1] == "" ) {
   cmd_line_usage()
 }
 
 long_term_care_shp_path <- cmdline_args[1]
+if ( file.access(long_term_care_shp_path, mode = 4) != 0) {
+  cat("Error: ESRI shapefile '", long_term_care_shp_path, "' not found or not readable.\n", sep = "")
+  quit( save = "no", status = 1 )
+}
 
 # load the required libraries
 
