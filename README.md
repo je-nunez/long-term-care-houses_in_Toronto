@@ -12,11 +12,17 @@ It is possible to do the same for the City-operated Long-Term-Care houses in Ott
 In the U.S., the Federal Government [Open Data site](http://catalog.data.gov/ "U.S. Federal Government Open Data site")
 has shapefiles for Assisted Living Facilities, Senior Housing, for different states and counties, for
 example, for
-[Missouri](http://catalog.data.gov/dataset/assisted-living-facilities-mo-2012-long-term-care-facilities-shp "Missouri's Shapefile of Assisted Living Facilities, Senior Housing")
+[Missouri](http://catalog.data.gov/dataset/assisted-living-facilities-mo-2012-long-term-care-facilities-shp "Missouri's Shapefile of Assisted Living Facilities, Senior Housing").
 
 In these cases, the script needs modification. (E.g., Toronto lists the telephone number
 of the Long-Term-Care houses in its shapefile, but other Open-Data sites don't need
 to give the phone number, or not code in the field name `TELEPHONE`.)
+
+Another issue is the visualization of the other attributes that each Long-Term-Care house
+has, like whether there is a smoking room or not, whether there is adult-day care
+available, the number of respite and of convalescence beds, without filling the map
+with too much information of these features. If this condition is met, then more of
+these attributes can be visualized on the map as well.
 
 # WIP
 
@@ -32,6 +38,6 @@ This script was inspired from [this](http://www.r-bloggers.com/shapefiles-in-r/)
 This is an example of the plot with the telephone numbers of the City-operated
 Long-Term-Care houses using the libraries above in R:
 
-![Telephone numbers and locations of the City-operated Long-Term-Care Houses in Toronto](/phone_numbers_long_term_care_houses.png?raw=true "Telephone numbers and locations of the City-operated Long-Term-Care Houses in Toronto").
+![Visualization of locations of the City-operated Long-Term-Care Houses in Toronto](/visual_long_term_care_houses.png?raw=true "Visualization of locations of the City-operated Long-Term-Care Houses in Toronto").
 
 

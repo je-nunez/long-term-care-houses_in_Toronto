@@ -1,3 +1,30 @@
+options(echo=FALSE)
+
+cmd_line_usage <- function() {
+  # Command-line usage
+  cat("Plot a map with the Long-Term-Care Houses (Assisted Living Facilities, Senior Housing) managed by the City of Toronto.\n",
+      "Execute this program passing it one argument in the command-line:\n\n",
+      "    First argument: the path to the ESRI Shapefile from Open-Data Toronto with the LTC Houses.\n\n",
+      "(This shapefile can be downloaded and unzipped from:\n\n",
+      "   http://www1.toronto.ca/wps/portal/contentonly?vgnextoid=aca5467d24716310VgnVCM1000003dd60f89RCRD\n\n",
+      ")\n\n",
+      "Example:\n\n",
+      "     R -f <this-script.R> --args  <path-to-shapefile>\n",
+      sep = "")
+
+  quit( save = "no", status = 1 )
+}
+
+cmdline_args <- commandArgs(TRUE)
+
+if ( length(cmdline_args) != 1 || cmdline_args[1] == "" || file.access(cmdline_args, mode = 4) != 0) {
+  cmd_line_usage()
+}
+
+long_term_care_shp_path <- cmdline_args[1]
+
+# load the required libraries
+
 required_packages <- c("plyr", "ggplot2", "sp", "rgeos", "maptools", "ggmap", "rgdal")
 
 missing_packages <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
@@ -14,12 +41,9 @@ library(maptools)
 library(ggmap)
 library(rgdal)
 
-shp_dirname <- "/Users/joseemilio.nunezmaya/projects/tests/city_operated_long_term_care_wgs84/"
-shp_fullpath <- paste(shp_dirname,
-                      "city_op_long_term_care_wgs84.shp",
-                      sep = "")
+# read the shapefile
 
-long_term_care <- readShapeSpatial(shp_fullpath)
+long_term_care <- readShapeSpatial(long_term_care_shp_path)
 
 long_term_care.points <- fortify(as.data.frame(long_term_care))
 
@@ -40,7 +64,7 @@ city_background <- get_map(location = toronto_borders,
                            zoom = zoom_level)
 
 png("/tmp/phone_numbers_long_term_care_houses.png",
-    width=1200, height=1200)
+    width=1200, height=760)
 
 # the point-size may be related with the # of beds in the long-term-care house
 point_size <- 6
@@ -71,6 +95,6 @@ ggmap(city_background) +
             size = text_size, vjust = 0.1, hjust = 1.1) +
   labs(x = "Longitude",
        y = "Latitude",
-       title = "Phone numbers of Long-Term-Care Houses operated by the City of Toronto")
+       title = "Number of Beds, Address, and Phone-Number of Long-Term-Care Houses operated by the City of Toronto")
 
 dev.off()
